@@ -125,7 +125,7 @@ public class ShiroConfig {
         //filterChainDefinitionMap.put("/test/jeecgDemo/html", "anon"); //模板页面
         //filterChainDefinitionMap.put("/test/jeecgDemo/redis/**", "anon"); //redis测试
 
-        filterChainDefinitionMap.put("/systemInfo/smartfuelSystemInfo/**", "anon"); //系统信息
+        filterChainDefinitionMap.put("/systemInfo/smartfuelSystemInfo/getSystemInfo", "anon"); //系统信息
 
         //websocket排除
         filterChainDefinitionMap.put("/websocket/**", "anon");//系统通知和公告
