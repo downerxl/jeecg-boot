@@ -26,8 +26,6 @@ public class SurveyController {
   private ISurveyService iSurveyService;
 
   /**
-   * 获取当前每煤层信息 http://SuveryServer/coalresults/interfaces/FieldsResults.json
-   *
    * @return
    */
   @AutoLog(value = "获取当前每煤层信息")
@@ -42,8 +40,10 @@ public class SurveyController {
   }
 
   /**
-   * 获取指定煤场所有分层信息 http://SuveryServer:2467/BucketWheel/GetStockyardMaterials
-   *
+   * @param StockyardID
+   * @param LevelHeight
+   * @param X1
+   * @param X2
    * @return
    */
   @AutoLog(value = "获取指定煤场所有分层信息")
@@ -60,8 +60,7 @@ public class SurveyController {
   }
 
   /**
-   * 获取斗轮机当前作业模型对应的CoalId信息 http://SuveryServer:2467/BucketWheel/GetCurMat
-   *
+   * @param BucketWheelID
    * @return
    */
   @AutoLog(value = "获取斗轮机当前作业模型对应的CoalId信息")
@@ -77,8 +76,9 @@ public class SurveyController {
   }
 
   /**
-   * 获取煤场纵截面指定间隔的最大高度 http://SuveryServer:2467/BucketWheel/GetFieldHeights
-   *
+   * @param StockyardID
+   * @param OffsetX
+   * @param Dists
    * @return
    */
   @AutoLog(value = "获取煤场纵截面指定间隔的最大高度")
@@ -93,8 +93,6 @@ public class SurveyController {
   }
 
   /**
-   * 获取三维程序版本号 http://SuveryServer:2467/BucietWheel/Version
-   *
    * @return
    */
   @AutoLog(value = "获取三维程序版本号")

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  * @create: 2022-03-15 17:07
  */
 @Service
-public class ISurveyServiceImpl implements ISurveyService {
+public class SurveyServiceImpl implements ISurveyService {
   @Value("${SurveyAddress}")
   private String ip;
 
