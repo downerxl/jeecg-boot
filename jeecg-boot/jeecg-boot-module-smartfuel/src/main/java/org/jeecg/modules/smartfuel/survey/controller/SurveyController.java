@@ -40,10 +40,10 @@ public class SurveyController {
   }
 
   /**
-   * @param StockyardID
-   * @param LevelHeight
-   * @param X1
-   * @param X2
+   * @param StockyardID 煤场编号
+   * @param LevelHeight 分层高度
+   * @param X1 起点距离煤堆内侧距离
+   * @param X2 终点距离煤堆内侧距离
    * @return
    */
   @AutoLog(value = "获取指定煤场所有分层信息")
@@ -60,7 +60,7 @@ public class SurveyController {
   }
 
   /**
-   * @param BucketWheelID
+   * @param BucketWheelID 斗轮机编号
    * @return
    */
   @AutoLog(value = "获取斗轮机当前作业模型对应的CoalId信息")
@@ -76,9 +76,9 @@ public class SurveyController {
   }
 
   /**
-   * @param StockyardID
-   * @param OffsetX
-   * @param Dists
+   * @param StockyardID 煤场（煤堆）编号
+   * @param OffsetX 截面距离轨道距离
+   * @param Dists 点间距
    * @return
    */
   @AutoLog(value = "获取煤场纵截面指定间隔的最大高度")
