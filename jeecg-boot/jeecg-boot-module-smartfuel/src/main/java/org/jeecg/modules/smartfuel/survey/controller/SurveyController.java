@@ -1,5 +1,7 @@
 package org.jeecg.modules.smartfuel.survey.controller;
 
+import cn.hutool.core.io.resource.ClassPathResource;
+import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Api(tags = "survey")
 @RestController
@@ -104,5 +114,128 @@ public class SurveyController {
       return Result.error("查询结果为null或者查询失败");
     }
     return Result.OK(result);
+  }
+
+  /**
+   * @param date
+   * @return
+   * @throws ParseException
+   */
+  @AutoLog(value = "解析json数据")
+  @ApiOperation(value = "解析json数据", notes = "解析json数据")
+  @GetMapping(value = "/GetJsonResultsByTime")
+  public Result<?> GetJsonResultsByTime(String date) throws ParseException {
+
+    // String str = "2022-03-15 18:50:11";
+
+    StringBuilder sb = new StringBuilder();
+    try {
+      String encoding = "UTF-8";
+
+      ClassPathResource classPathResource = new ClassPathResource("pro/2.txt");
+      InputStream inputStream = classPathResource.getStream();
+      InputStreamReader read = new InputStreamReader(inputStream, encoding); // 考虑到编码格式
+      BufferedReader bufferedReader = new BufferedReader(read);
+      String lineTxt = null;
+      while ((lineTxt = bufferedReader.readLine()) != null) {
+        sb.append(lineTxt);
+      }
+      read.close();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Result.error("读取文件内容出错");
+    }
+
+    if (sb.toString().isEmpty() && sb.toString().equals("")) { // 判断文件读取内容是否为空
+      return Result.error("文件内容为空");
+    } else {
+      String a = "\\[\\[\\{";
+      String b = "\":[[{";
+      String c = "}]]";
+      String d = "}]],\"";
+      String e = "{\"";
+      String f = "}";
+      // 自定义处理字符串格式
+      String replaceStr = sb.toString().replaceAll(a, b); // 将[[{  替换成 ":[[{
+      String replaceStr1 = replaceStr.replaceAll(c, d); // 将}]]   替换成  }]],"
+      String replaceStr2 = e + replaceStr1; // 在头部增加{“
+      StringBuilder sb1 = new StringBuilder();
+      sb1.append(replaceStr2).replace(sb1.length() - 2, sb1.length() - 1, f); // 将尾部," 替换成 }
+      // 将json封装成map
+      Map maps = (Map) JSON.parse(sb1.toString());
+
+      for (Object map : maps.entrySet()) {
+        // 遍历map取出key值并格式化，因为自定义处理的时候导致key有空格
+        String key = ((Map.Entry) map).getKey().toString();
+        SimpleDateFormat lsdStrFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date strD = lsdStrFormat.parse(key);
+        String formatDate = lsdStrFormat.format(strD);
+        // 如果有相同时间的key，直接返回value
+        if (formatDate.equals(date)) {
+          return Result.OK(((Map.Entry) map).getValue());
+        }
+      }
+      return Result.error("没有查询到结果");
+    }
+  }
+
+  /**
+   * @return
+   * @throws ParseException
+   */
+  @AutoLog(value = "解析json数据返回时间戳")
+  @ApiOperation(value = "解析json数据返回时间戳", notes = "解析json数据返回时间戳")
+  @GetMapping(value = "/GetJsonTime")
+  public Result<?> GetJsonTime() throws ParseException {
+
+    // String str = "2022-03-15 18:50:11";
+
+    StringBuilder sb = new StringBuilder();
+    try {
+      String encoding = "UTF-8";
+      ClassPathResource classPathResource = new ClassPathResource("pro/2.txt");
+      InputStream inputStream = classPathResource.getStream();
+      InputStreamReader read = new InputStreamReader(inputStream, encoding); // 考虑到编码格式
+      BufferedReader bufferedReader = new BufferedReader(read);
+      String lineTxt = null;
+      while ((lineTxt = bufferedReader.readLine()) != null) {
+        sb.append(lineTxt);
+      }
+      read.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Result.error("读取文件内容出错");
+    }
+    if (sb.toString().isEmpty() && sb.toString().equals("")) { // 判断文件读取内容是否为空
+      return Result.error("文件内容为空");
+    } else {
+      String a = "\\[\\[\\{";
+      String b = "\":[[{";
+      String c = "}]]";
+      String d = "}]],\"";
+      String e = "{\"";
+      String f = "}";
+      // 自定义处理字符串格式
+      String replaceStr = sb.toString().replaceAll(a, b); // 将[[{  替换成 ":[[{
+      String replaceStr1 = replaceStr.replaceAll(c, d); // 将}]]   替换成  }]],"
+      String replaceStr2 = e + replaceStr1; // 在头部增加{“
+      StringBuilder sb1 = new StringBuilder();
+      sb1.append(replaceStr2).replace(sb1.length() - 2, sb1.length() - 1, f); // 将尾部," 替换成 }
+      // 将json封装成map
+      Map maps = (Map) JSON.parse(sb1.toString());
+      List<String> dateList = new ArrayList<>();
+      List<String> dateList1 = new ArrayList<>();
+      for (Object map : maps.entrySet()) {
+        // 遍历map取出key值并格式化，因为自定义处理的时候导致key有空格
+        String key = ((Map.Entry) map).getKey().toString();
+        SimpleDateFormat lsdStrFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date strD = lsdStrFormat.parse(key);
+        String formatDate = lsdStrFormat.format(strD);
+        dateList.add(formatDate);
+      }
+      dateList1 = dateList.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+      return Result.OK(dateList1);
+    }
   }
 }
