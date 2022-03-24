@@ -144,6 +144,13 @@
 				<version>${jeecgboot.version}</version>
 			</dependency>
 
+			<!-- smartplant 模块-->
+			<dependency>
+				<groupId>org.jeecgframework.boot</groupId>
+				<artifactId>jiyitech-boot-module-smartplant</artifactId>
+				<version>${jeecgboot.version}</version>
+			</dependency>
+
 			<!-- jeecg tools -->
 			<dependency>
 				<groupId>org.jeecgframework.boot</groupId>

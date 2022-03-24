@@ -32,7 +32,7 @@ public class MockController {
 	 */
 	@RequestMapping(value = "/json/{filename}", method = RequestMethod.GET)
 	public String getJsonData(@PathVariable("filename") String filename) {
-		String jsonpath = "classpath:org/jeecg/modules/demo/mock/json/"+filename+".json";
+		String jsonpath = "classpath:org/jeecg/modules/demo/mock/json/"+filename+".json";//
 		return readJson(jsonpath);
 	}
 
