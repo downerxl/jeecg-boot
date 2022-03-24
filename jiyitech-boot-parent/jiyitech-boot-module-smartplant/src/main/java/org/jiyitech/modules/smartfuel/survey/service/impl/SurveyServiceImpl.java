@@ -7,7 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.jeecg.common.api.vo.Result;
-import org.jiyitech.modules.smartfuel.survey.service.SurveyService;
+import org.jiyitech.modules.smartfuel.survey.service.ISurveyService;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @create: 2022-03-24 13:19
  **/
 
-public class SurveyServiceImpl implements SurveyService {
+public class SurveyServiceImpl implements ISurveyService {
 
     @Value("${SurveyAddress}")
     private String ip;

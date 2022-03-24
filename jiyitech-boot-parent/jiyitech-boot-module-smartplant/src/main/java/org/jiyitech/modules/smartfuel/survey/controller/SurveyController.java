@@ -6,9 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.aspect.annotation.AutoLog;
-import org.jiyitech.modules.smartfuel.survey.service.SurveyService;
+import org.jiyitech.modules.smartfuel.survey.service.ISurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SurveyController {
 
     @Autowired(required = false)
-    private SurveyService surveyService;
+    private ISurveyService surveyService;
 
     /**
      * 获取当前每煤层信息

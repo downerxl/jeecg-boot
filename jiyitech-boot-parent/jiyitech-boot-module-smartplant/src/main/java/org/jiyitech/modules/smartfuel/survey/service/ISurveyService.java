@@ -1,6 +1,6 @@
 package org.jiyitech.modules.smartfuel.survey.service;
 
-public interface SurveyService {
+public interface ISurveyService {
     Object getCoalresults();
 
     Object GetStockyardMaterials(int StockyardID, double LevelHeight, double X1, double X2);
