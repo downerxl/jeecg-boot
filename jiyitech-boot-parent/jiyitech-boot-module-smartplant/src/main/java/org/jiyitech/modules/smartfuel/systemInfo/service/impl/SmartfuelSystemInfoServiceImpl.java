@@ -3,7 +3,7 @@ package org.jiyitech.modules.smartfuel.systemInfo.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiyitech.modules.smartfuel.systemInfo.entity.SmartfuelSystemInfo;
 import org.jiyitech.modules.smartfuel.systemInfo.mapper.SmartfuelSystemInfoMapper;
-import org.jiyitech.modules.smartfuel.systemInfo.service.ISmartfuelSystemInfoService;
+import org.jiyitech.modules.smartfuel.systemInfo.service.SmartfuelSystemInfoService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @Version: V1.0
  */
 @Service
-public class SmartfuelSystemInfoServiceImpl extends ServiceImpl<SmartfuelSystemInfoMapper, SmartfuelSystemInfo> implements ISmartfuelSystemInfoService {
+public class SmartfuelSystemInfoServiceImpl extends ServiceImpl<SmartfuelSystemInfoMapper, SmartfuelSystemInfo> implements SmartfuelSystemInfoService {
 
 
     @Override

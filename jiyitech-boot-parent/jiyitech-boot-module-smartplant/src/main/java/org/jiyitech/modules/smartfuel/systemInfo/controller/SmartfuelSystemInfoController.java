@@ -11,7 +11,7 @@ import org.jeecg.common.aspect.annotation.AutoLog;
 import org.jeecg.common.system.base.controller.JeecgController;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jiyitech.modules.smartfuel.systemInfo.entity.SmartfuelSystemInfo;
-import org.jiyitech.modules.smartfuel.systemInfo.service.ISmartfuelSystemInfoService;
+import org.jiyitech.modules.smartfuel.systemInfo.service.SmartfuelSystemInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,9 +30,9 @@ import java.util.Arrays;
 @RestController
 @RequestMapping("/systemInfo/smartfuelSystemInfo")
 @Slf4j
-public class SmartfuelSystemInfoController extends JeecgController<SmartfuelSystemInfo, ISmartfuelSystemInfoService> {
+public class SmartfuelSystemInfoController extends JeecgController<SmartfuelSystemInfo, SmartfuelSystemInfoService> {
     @Autowired
-    private ISmartfuelSystemInfoService smartfuelSystemInfoService;
+    private SmartfuelSystemInfoService smartfuelSystemInfoService;
 
     /**
      * 分页列表查询

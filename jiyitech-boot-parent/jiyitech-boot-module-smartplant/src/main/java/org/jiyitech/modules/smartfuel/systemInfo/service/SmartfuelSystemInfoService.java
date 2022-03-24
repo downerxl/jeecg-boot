@@ -9,7 +9,7 @@ import org.jiyitech.modules.smartfuel.systemInfo.entity.SmartfuelSystemInfo;
  * @Date: 2022-03-09
  * @Version: V1.0
  */
-public interface ISmartfuelSystemInfoService extends IService<SmartfuelSystemInfo> {
+public interface SmartfuelSystemInfoService extends IService<SmartfuelSystemInfo> {
     
     SmartfuelSystemInfo getSystemInfo();
 
