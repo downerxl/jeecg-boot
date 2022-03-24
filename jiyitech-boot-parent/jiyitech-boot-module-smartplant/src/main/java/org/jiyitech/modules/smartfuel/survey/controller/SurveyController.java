@@ -27,9 +27,9 @@ public class SurveyController {
 
     @Autowired(required = false)
     private SurveyService surveyService;
+
     /**
-     * 获取当前每煤层信息 http://SuveryServer/coalresults/interfaces/FieldsResults.json
-     *
+     * 获取当前每煤层信息
      * @return
      */
     @AutoLog(value = "获取当前每煤层信息")
@@ -44,8 +44,11 @@ public class SurveyController {
     }
 
     /**
-     * 获取指定煤场所有分层信息 http://SuveryServer:2467/BucketWheel/GetStockyardMaterials
-     *
+     * 获取指定煤场所有分层信息
+     * @param StockyardID 煤场编号
+     * @param LevelHeight 分层高度
+     * @param X1 起点距离煤堆内侧距离
+     * @param X2 终点距离煤堆内侧距离
      * @return
      */
     @AutoLog(value = "获取指定煤场所有分层信息")
@@ -62,8 +65,8 @@ public class SurveyController {
     }
 
     /**
-     * 获取斗轮机当前作业模型对应的CoalId信息 http://SuveryServer:2467/BucketWheel/GetCurMat
-     *
+     * 获取斗轮机当前作业模型对应的CoalId信息
+     * @param BucketWheelID 斗轮机编号
      * @return
      */
     @AutoLog(value = "获取斗轮机当前作业模型对应的CoalId信息")
@@ -79,8 +82,10 @@ public class SurveyController {
     }
 
     /**
-     * 获取煤场纵截面指定间隔的最大高度 http://SuveryServer:2467/BucketWheel/GetFieldHeights
-     *
+     * 获取煤场纵截面指定间隔的最大高度
+     * @param StockyardID 煤场（煤堆）编号
+     * @param OffsetX 截面距离轨道距离
+     * @param Dists 点间距，逗号分割的字符串
      * @return
      */
     @AutoLog(value = "获取煤场纵截面指定间隔的最大高度")
@@ -95,8 +100,7 @@ public class SurveyController {
     }
 
     /**
-     * 获取三维程序版本号 http://SuveryServer:2467/BucietWheel/Version
-     *
+     * 获取三维程序版本号
      * @return
      */
     @AutoLog(value = "获取三维程序版本号")
