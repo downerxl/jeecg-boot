@@ -14,6 +14,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 
 import java.net.InetAddress;
@@ -24,6 +25,7 @@ import java.net.UnknownHostException;
 */
 @Slf4j
 @SpringBootApplication
+@ComponentScan(basePackages = {"org.jeecg.*","org.jiyitech.*"})
 @EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
 public class JeecgSystemApplication extends SpringBootServletInitializer {
 
