@@ -12,8 +12,14 @@
     <a-spin :spinning="confirmLoading">
       <a-form-model ref="form" :model="model" :rules="validatorRules">
 
-        <a-form-model-item :labelCol="labelCol"  :wrapperCol="wrapperCol" label="任务类名" prop="jobClassName" hasFeedback >
-          <a-input placeholder="请输入任务类名" v-model="model.jobClassName" />
+        <a-form-model-item :labelCol="labelCol"  :wrapperCol="wrapperCol" label="任务类名"  hasFeedback >
+<!--          <a-input placeholder="请输入任务类名" v-model="model.jobClassNsame" />-->
+          <a-select style="width: 65%" @change="handlePackageChange" >
+            <a-select-option v-for="name in packageNames" :key="name" :value="name">{{name}}</a-select-option>
+          </a-select>
+          <a-select v-model="model.jobClassName" prop="jobClassName" style="width: 35%">
+            <a-select-option v-for="d in packageDatas" :key="d.value" :value="d.value">{{d.text}}</a-select-option>
+          </a-select>
         </a-form-model-item>
         <a-form-model-item :labelCol="labelCol" :wrapperCol="wrapperCol" label="Cron表达式" prop="cronExpression">
           <!-- <j-cron v-model="model.cronExpression"/>-->
@@ -49,6 +55,8 @@
         buttonStyle: 'solid',
         visible: false,
         model: {},
+        packageDatas: [],
+        packageNames: ["org.jiyitech.modules.smartfuel.job","org.jeecg.common.online.api"],
         labelCol: {
           xs: { span: 24 },
           sm: { span: 5 },
@@ -72,10 +80,12 @@
         url: {
           add: "/sys/quartzJob/add",
           edit: "/sys/quartzJob/edit",
+          getPackage: "/sys/quartzJob/getPackagePath"
         },
       }
     },
     created () {
+      this.initPackageDatas("")
     },
     methods: {
       add() {
@@ -84,6 +94,25 @@
           cronExpression: '* * * * * ? *',
           status: 0,
         })
+      },
+      initPackageDatas(packageName) {
+        let packageUrl = this.url.getPackage + "?packageName=" + packageName;
+        let method = "get";
+        this.packageDatas = [];
+        httpAction(packageUrl,"",method).then((res) => {
+          if (res.success) {
+            const result = res.result
+            result.forEach((r) => {
+              this.packageDatas.push({
+                value: r,
+                text: r.substring(r.lastIndexOf(".") + 1,r.length)
+              })
+            })
+          }
+        })
+      },
+      handlePackageChange(value) {
+        this.initPackageDatas(value)
       },
       edit (record) {
         this.visible = true;

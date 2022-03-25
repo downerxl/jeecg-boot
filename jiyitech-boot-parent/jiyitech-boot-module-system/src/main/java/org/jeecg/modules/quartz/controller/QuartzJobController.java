@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import me.zhyd.oauth.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.jeecg.common.api.vo.Result;
@@ -20,6 +21,7 @@ import org.jeecgframework.poi.excel.def.NormalExcelConstants;
 import org.jeecgframework.poi.excel.entity.ExportParams;
 import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.jeecgframework.poi.excel.view.JeecgEntityExcelView;
+import org.jiyitech.modules.smartfuel.util.ClazzUtils;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,21 @@ public class QuartzJobController {
 		IPage<QuartzJob> pageList = quartzJobService.page(page, queryWrapper);
         return Result.ok(pageList);
 
+	}
+
+	/**
+	 * 根据packageName获取其下所有的类名全路径
+	 * @param packageName 包名
+	 * @return
+	 */
+	@ApiOperation(value = "获取包名下所有的类名全路径")
+	@RequestMapping(value = "/getPackagePath",method = RequestMethod.GET)
+	public Result<?> getPackagePath(@RequestParam(name = "packageName",defaultValue = "org.jiyitech.modules.smartfuel.job") String packageName) {
+		if (StringUtils.isEmpty(packageName)) {
+			packageName = "org.jiyitech.modules.smartfuel.job";
+		}
+		List<String> clazzName = ClazzUtils.getClazzName(packageName, false);
+		return Result.OK(clazzName);
 	}
 
 	/**
